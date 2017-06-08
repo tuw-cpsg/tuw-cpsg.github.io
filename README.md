@@ -1,1 +1,7 @@
-# tuw-cpsg.github.io
+Collects tutorials and general information for stuff we don't have an extra
+repository for (typically things where we don't provide source code, e.g.,
+usage or installation instructions).
+
+# Tutorials
+
+* [Network Setup to work with `dagobert`](tutorials/dagobert-network-setup.md)
