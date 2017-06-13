@@ -5,3 +5,4 @@ usage or installation instructions).
 # Tutorials
 
 * [Network Setup to work with `dagobert`](tutorials/dagobert-network-setup.md)
+* [Setting up OptiTrack/Motion to work with ROS](tutorials/optitrack-and-ros/README.md)
