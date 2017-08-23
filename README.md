@@ -6,3 +6,4 @@ usage or installation instructions).
 
 * [Network Setup to work with `dagobert`](tutorials/dagobert-network-setup.md)
 * [Setting up OptiTrack/Motion to work with ROS](tutorials/optitrack-and-ros/README.md)
+* [Setup and Use of Laser Rangefinder Hokuyo URG-04LX](tutorials/hokuyo-urg-04lx/README.md)
