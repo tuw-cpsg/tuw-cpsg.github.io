@@ -16,6 +16,13 @@ Connect and stream the range data via a USB-A to USB-A-mini cable.
 
 ## Install the ROS drivers
 
+ROS indigo:
+```bash
+sudo apt-get install ros-indigo-driver-common
+sudo apt-get install ros-indigo-hokuyo-node
+```
+
+From ROS kinetic onwards:
 ```bash
 cd ~/catkin_ws/src/
 git clone https://github.com/ros-drivers/driver_common.git
