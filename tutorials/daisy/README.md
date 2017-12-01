@@ -29,9 +29,10 @@ solutions in consultation with Denise.
 
 ![Pioneer 3-AT daisy.](./network.png)
 
-`daisy` automatically connects to the access point `<SSID>` over its interface
-`wlan0` when available. Denise manages the accounts and connection details
-(SSID, IPs, username and password) -> contact for account creation.
+The Raspberry Pi `daisy-pi` automatically connects to the access point `<SSID>`
+over its interface `wlan0` when available and is the gateway of the Jetson
+TK1. Denise manages the accounts and connection details (SSID, IPs, username
+and password) -> contact for account creation.
 
 [Setup a hotspot](https://wiki.ubuntuusers.de/Howto/Hotspot_auf_PC_einrichten/)
 with the appropriate SSID and password. Start the hotspot with
@@ -50,23 +51,44 @@ $ roslaunch pioneer_teleop drive.launch \
     robot-distro:=indigo robot-port:=/dev/ttyTHS1
 ```
 
-### Reach `daisy-pi`
+### Reach `daisy`
 
-`daisy` uses the Ethernet port `eth1` to communicate to the Raspberry Pi. The
-Pi is therefore in a different network `<ne>` than the notebook.
+Jetson TK1 `daisy` uses its Ethernet port to communicate to the Raspberry Pi
+`daisy-pi`. The Jetson TK1 is therefore in a different network `<ne>` than the
+notebook `<nw>`.
 
 [IP forwarding](https://gist.github.com/tzermias/5408466) must be enabled for
-`eth1` to `wlan0`, which is performed by a script at startup. On the
-Pi [set the route](http://linux-ip.net/html/tools-route.html) to the WLAN
-network <nw>. And vice versa for the notebook.
+the Pi's Ethernet port `eth` to `wlan0`, which is performed by a script at
+startup. On the
+Jetson~TK1 [set the route](http://linux-ip.net/html/tools-route.html) to the
+WLAN network `<nw>`. And vice versa for the notebook (route to Jetson TK1).
+
+Additionally to the settings below, `daisy`, `daisy-pi` and your notebook need
+appropriate host name entries in `/etc/hosts` mapping the name to the IP.
 
 #### Settings on `daisy`
 
-Network settings in `/etc/network/interfaces` (static IP address):
+Network settings in `/etc/network/interfaces`:
 ```bash
 auto eth1
 iface eth1 inet static
   address <ne-daisy-ip>
+  netmask 255.255.255.0
+  gateway <ne-daisy-pi-ip>
+  dns-nameservers 8.8.8.8 8.8.4.4
+
+# Static route
+up route add -net <nw-base-ip> netmask 255.255.255.0 gw <ne-diasy-pi-ip>
+```
+
+#### Settings on `daisy-pi`
+
+Network settings in `/etc/network/interfaces`:
+```bash
+# Connection to Jetson TK1
+auto enxb827eb4e5821
+iface enxb827eb4e5821 inet static
+  address <ne-daisy-pi-ip>
   netmask 255.255.255.0
 ```
 
@@ -75,32 +97,19 @@ Script for IP forwarding:
 #!/bin/sh
 # enable ip forwarding
 sudo sysctl -w net.ipv4.ip_forward=1
-# forward packets from eth1 to wlan0
-sudo iptables -A FORWARD --in-interface eth1 -j ACCEPT
+# forward packets from eth to wlan
+sudo iptables -A FORWARD --in-interface enxb827eb4e5821 -j ACCEPT
 sudo iptables --table nat -A POSTROUTING --out-interface wlan0 -j MASQUERADE
 ```
 
 Added following snippet to `/etc/rc.local`:
 ```bash
 # ip forwarding
-/home/ubuntu/forward_eth1_to_wlan0.sh &
-echo "start ip forwarding: eth1 -> wlan0"
+/home/pi/forward_eth_to_wlan.sh &
+echo "start ip forwarding: eth -> wlan"
 ```
 
-#### Settings on `daisy-pi`
-Network settings in `/etc/network/interfaces` (static IP address and static route):
-```bash
-# Connection to Jetson TK1
-auto enxb827eb4e5821
-iface enxb827eb4e5821 inet static
-  address <ne-daisy-pi-ip>
-  netmask 255.255.255.0
-  gateway <ne-daisy-ip>
-  dns-nameservers 8.8.8.8 8.8.4.4
-
-# Static route
-up route add -net <nw-base-ip> netmask 255.255.255.0 gw <ne-diasy-ip>
-```
+The WiFi connection to the access point is setup via the GUI.
 
 
 #### Settings on `your-notebook`
@@ -108,8 +117,11 @@ up route add -net <nw-base-ip> netmask 255.255.255.0 gw <ne-diasy-ip>
 When you use a hotspot on your notebook, create a route to reach `daisy-pi`.
 ```bash
 # Static route
-up route add -net <ne-base-ip> netmask 255.255.255.0 gw <nw-diasy-ip>
+up route add -net <ne-base-ip> netmask 255.255.255.0 gw <nw-diasy-pi-ip>
 ```
+
+Set a static IP if you don't create a hotspot but use a router as access point
+for example.
 
 
 ## Jetson TK1 Installation
@@ -133,4 +145,4 @@ up route add -net <ne-base-ip> netmask 255.255.255.0 gw <nw-diasy-ip>
   installed IP routes on Pi and notebook.
 
 ---
-2017-10-16 | Denise Ratasich
+2017-12-01 | Denise Ratasich
