@@ -144,5 +144,11 @@ for example.
 * Enabled [IP forwarding](https://gist.github.com/tzermias/5408466) and
   installed IP routes on Pi and notebook.
 
+
+## Applications and Usage
+
+* [Tracking Daisy](optitrack/README.md)
+
+
 ---
 2017-12-01 | Denise Ratasich
