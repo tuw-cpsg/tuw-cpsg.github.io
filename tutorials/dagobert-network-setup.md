@@ -21,7 +21,7 @@ need an internet connection, you don't have to copy/pull code, the rover
 remains "clean", etc.
 
 For that to work you need to be able to `ssh dagobert` and `ssh your-notebook`
-vice versa.
+vice versa (you will need `openssh-server` installed on your notebook).
 
 * Select a static IP for your notebook.
 
@@ -77,5 +77,13 @@ notebook (this will run the ROS master, teleoperation and additional nodes on
 your notebook and only the driver on the robot):
 
 ```bash
-$ roslaunch pioneer_teleop drive.launch notebook:=your-notebook robot:=dagobert robot-distro:=hydro robot-port:=/dev/ttyS0
+$ roslaunch pioneer_teleop drive.launch \
+  notebook:=your-notebook robot:=dagobert \
+  robot-distro:=hydro robot-port:=/dev/ttyS0
 ```
+
+For the tele-operation to work, the notebook has to know the messages from the
+rover, i.e., install `ros-<distro>-p2os-msgs`.
+
+On 17.04 the following error occured: pycrypto not installed. This error
+vanished when I installed `python-pip`.
