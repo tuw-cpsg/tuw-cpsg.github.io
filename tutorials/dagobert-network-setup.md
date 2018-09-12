@@ -37,6 +37,8 @@ vice versa (you will need `openssh-server` installed on your notebook).
     User your-username-on-your-notebook
   ```
 
+  Do vice-versa on `dagobert`'s `.ssh/config`.
+
 * Exchange ssh-keys such that you can ssh without
   password-prompt. Unfortunately, ROS connections can only be established with
   RSA keys ([known_hosts

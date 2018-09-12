@@ -34,11 +34,10 @@ over its interface `wlan0` when available and is the gateway of the Jetson
 TK1. Denise manages the accounts and connection details (SSID, IPs, username
 and password) -> contact for account creation.
 
-[Setup a hotspot](https://wiki.ubuntuusers.de/Howto/Hotspot_auf_PC_einrichten/)
-with the appropriate SSID and password. Start the hotspot with
-```bash
-$ nmcli con up id <hotspot-name>
-```
+A router provides an access point for convinience. However, you can also [setup
+a hotspot](https://wiki.ubuntuusers.de/Howto/Hotspot_auf_PC_einrichten/) with
+the appropriate SSID and password (start the hotspot with `$ nmcli con up id
+<hotspot-name>`).
 
 To use `daisy` in a convenient way, follow the instructions of
 the [rover network setup](../dagobert-network-setup.md) on the example of
@@ -114,14 +113,17 @@ The WiFi connection to the access point is setup via the GUI.
 
 #### Settings on `your-notebook`
 
-When you use a hotspot on your notebook, create a route to reach `daisy-pi`.
+Connect to the access point (router), enter the password and configure it as
+follows: (unused) static IP for your notebook, netmask `255.255.255.0`, the
+gateway `<nw-daisy-pi-ip>`, DNS (e.g., `8.8.8.8`), and the route to `daisy`
+(address `<ne-base-ip>`, netmask `255.255.255.0`, gateway `<nw-daisy-pi-ip>`).
+
+When you use a hotspot on your notebook, create a route to reach `daisy`
+in `/etc/network/interfaces`:
 ```bash
 # Static route
 up route add -net <ne-base-ip> netmask 255.255.255.0 gw <nw-diasy-pi-ip>
 ```
-
-Set a static IP if you don't create a hotspot but use a router as access point
-for example.
 
 
 ## Jetson TK1 Installation
