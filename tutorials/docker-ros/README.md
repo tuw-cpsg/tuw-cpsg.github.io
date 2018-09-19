@@ -44,7 +44,8 @@
   The container uses the host's network with *no isolation (!)* (as if the
   container processes would run on the host) using the host's ssh
   configuration, `/etc/hosts` and hostname. The environment variable of the
-  master URI is set.
+  master URI is set, however, you might have a ros-entrypoint-script sourcing
+  the workspaces anyway where you can add the export of the variable.
 
   It is convinient to assign a name to the container:
   * to start another shell in the same container (this is not the typical
@@ -58,19 +59,8 @@
     ```
   * to restart the container.
     ```bash
-    $ docker restart ros
+    $ docker start ros
     ```
-
-In the container do:
-
-* Install `p2os_msgs` (replace `kinetic` with your distro) which is needed to
-  communicate with the robot driver (e.g., motor control). `bash-completion`
-  is just for convinience.
-  ```bash
-  $ apt update
-  $ apt install bash-completion
-  $ apt install ros-kinetic-p2os-msgs
-  ```
 
 
 ## Usage Examples
@@ -155,11 +145,20 @@ On the host do:
 
 * Run ROS in docker container created before.
   ```bash
-  $ docker restart ros
+  $ docker start ros
   $ docker exec -it ros bash
   ```
 
 In the container do:
+
+* Install `p2os_msgs` (replace `kinetic` with your distro) which is needed to
+  communicate with the robot driver (e.g., motor control). `bash-completion`
+  is just for convinience.
+  ```bash
+  $ apt update
+  $ apt install bash-completion
+  $ apt install ros-kinetic-p2os-msgs
+  ```
 
 * Initialize the [ROS workspace] (build and source):
   ```bash
@@ -196,4 +195,4 @@ In the container do:
 [general-ros-modules repository]: https://github.com/tuw-cpsg/general-ros-modules
 
 ---
-2018-09-12 | Denise Ratasich
+2018-09-19 | Denise Ratasich

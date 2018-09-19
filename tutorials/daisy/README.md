@@ -34,10 +34,10 @@ over its interface `wlan0` when available and is the gateway of the Jetson
 TK1. Denise manages the accounts and connection details (SSID, IPs, username
 and password) -> contact for account creation.
 
-A router provides an access point for convinience. However, you can also [setup
-a hotspot](https://wiki.ubuntuusers.de/Howto/Hotspot_auf_PC_einrichten/) with
-the appropriate SSID and password (start the hotspot with `$ nmcli con up id
-<hotspot-name>`).
+A router provides an access point for convinience. However, you can also
+[setup a hotspot](https://wiki.ubuntuusers.de/Howto/Hotspot_auf_PC_einrichten/)
+with the appropriate SSID and password
+(start the hotspot with `$ nmcli con up id <hotspot-name>`).
 
 To use `daisy` in a convenient way, follow the instructions of
 the [rover network setup](../dagobert-network-setup.md) on the example of
@@ -58,8 +58,8 @@ notebook `<nw>`.
 
 [IP forwarding](https://gist.github.com/tzermias/5408466) must be enabled for
 the Pi's Ethernet port `eth` to `wlan0`, which is performed by a script at
-startup. On the
-Jetson~TK1 [set the route](http://linux-ip.net/html/tools-route.html) to the
+startup. On the Jetson TK1
+[set the route](http://linux-ip.net/html/tools-route.html) to the
 WLAN network `<nw>`. And vice versa for the notebook (route to Jetson TK1).
 
 Additionally to the settings below, `daisy`, `daisy-pi` and your notebook need
@@ -147,10 +147,21 @@ up route add -net <ne-base-ip> netmask 255.255.255.0 gw <nw-diasy-pi-ip>
   installed IP routes on Pi and notebook.
 
 
-## Applications and Usage
+## Applications using Daisy
+
+### Tutorials
 
 * [Tracking Daisy](optitrack/README.md)
+* [Run ROS with Docker](../docker-ros/README.md)
+
+### Repositories
+
+* ROS drivers for Daisy's sensors are part of the [general-ros-modules package](https://github.com/tuw-cpsg/general-ros-modules)
+* [Daisy's Status on a Nokia 5110 LCD](https://github.com/tuw-cpsg/nokia5110-lcd-driver)
+* [Demos](https://github.com/tuw-cpsg/demos_ros) using Daisy (e.g., [optitrack](optitrack/README.md), state estimation, wanderer)
+* A [generic sensor fusion package](https://github.com/tuw-cpsg/sf-pkg) was developed for and tested on Daisy
+* A [self-healing package](https://github.com/dratasich/shsa_ros) is demonstrated with Daisy
 
 
 ---
-2017-12-01 | Denise Ratasich
+2018-09-19 | Denise Ratasich
