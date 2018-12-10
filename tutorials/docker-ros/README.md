@@ -128,6 +128,8 @@ You can then (re-)start `rqt_graph` by:
 $ docker start rqt_graph
 ```
 
+Some GUI apps still make troubles (e.g., rviz). You may try [x11docker].
+
 ### Controlling Daisy
 
 On the host do:
@@ -183,6 +185,8 @@ In the container do:
 * [ROS Docker and GUI] -- outdated but still useful instructions to run ROS with Docker
 * [ROS Docker images] -- ROS images and examples
 * [ROS workspace] -- how to create a ROS workspace
+* [x11docker] -- the simple way to run GUI apps in docker
+* [Daisy Demos with Docker] -- images to control Daisy with ROS on docker
 
 
 [Docker Documentation]: https://docs.docker.com/
@@ -193,6 +197,8 @@ In the container do:
 [Daisy's network]: ../README.md
 [network setup]: ../../dagobert-network-setup.md
 [general-ros-modules repository]: https://github.com/tuw-cpsg/general-ros-modules
+[x11docker](https://github.com/mviereck/x11docker)
+[Daisy Demos with Docker](https://github.com/dratasich/docker)
 
 ---
-2018-09-19 | Denise Ratasich
+2018-12-10 | Denise Ratasich
