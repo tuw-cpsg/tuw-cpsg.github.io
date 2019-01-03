@@ -197,8 +197,8 @@ In the container do:
 [Daisy's network]: ../README.md
 [network setup]: ../../dagobert-network-setup.md
 [general-ros-modules repository]: https://github.com/tuw-cpsg/general-ros-modules
-[x11docker](https://github.com/mviereck/x11docker)
-[Daisy Demos with Docker](https://github.com/dratasich/docker)
+[x11docker]: https://github.com/mviereck/x11docker
+[Daisy Demos with Docker]: https://github.com/dratasich/docker
 
 ---
-2018-12-10 | Denise Ratasich
+2018-01-03 | Denise Ratasich
