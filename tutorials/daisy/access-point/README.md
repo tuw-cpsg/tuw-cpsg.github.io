@@ -63,7 +63,7 @@ IP forwarding similar to what `daisy-pi` is doing for `daisy` has to be installe
 
 ## References
 
-* [Daisy]: overview, tutorials and demos
+* Overview, tutorials and demos for [Daisy]
 
 
 [network setup]: ../../dagobert-network-setup.md
