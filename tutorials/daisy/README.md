@@ -35,11 +35,9 @@ TK1. Denise manages the accounts and connection details (SSID, IPs, username
 and password) -> contact for account creation.
 
 A router provides an access point for convinience. However, you can also
-[setup a hotspot](https://wiki.ubuntuusers.de/Howto/Hotspot_auf_PC_einrichten/)
-with the appropriate SSID and password
-(start the hotspot with `$ nmcli con up id <hotspot-name>`).
+[setup a hotspot] with the appropriate SSID and password.
 
-To use `daisy` in a convenient way, follow the instructions of
+To use `daisy` in a convenient way (with ROS launch files), follow the instructions of
 the [rover network setup](../dagobert-network-setup.md) on the example of
 `dagobert`. You can test the network setup with following command (replace
 `your-notebook` with the hostname of your PC):
@@ -118,12 +116,8 @@ follows: (unused) static IP for your notebook, netmask `255.255.255.0`, the
 gateway `<nw-daisy-pi-ip>`, DNS (e.g., `8.8.8.8`), and the route to `daisy`
 (address `<ne-base-ip>`, netmask `255.255.255.0`, gateway `<nw-daisy-pi-ip>`).
 
-When you use a hotspot on your notebook, create a route to reach `daisy`
-in `/etc/network/interfaces`:
-```bash
-# Static route
-up route add -net <ne-base-ip> netmask 255.255.255.0 gw <nw-diasy-pi-ip>
-```
+When you want to use a hotspot on your notebook,
+check out the tutorial on how to [setup a hotspot] for Daisy.
 
 
 ## Jetson TK1 Installation
@@ -153,6 +147,7 @@ up route add -net <ne-base-ip> netmask 255.255.255.0 gw <nw-diasy-pi-ip>
 
 * [Tracking Daisy](optitrack/README.md)
 * [Run ROS with Docker](../docker-ros/README.md)
+* [Setup a hotspot] for Daisy
 
 ### Repositories
 
@@ -163,5 +158,7 @@ up route add -net <ne-base-ip> netmask 255.255.255.0 gw <nw-diasy-pi-ip>
 * A [self-healing package](https://github.com/dratasich/shsa_ros) is demonstrated with Daisy
 
 
+[setup a hotspot]: access-point/README.md
+
 ---
-2018-09-19 | Denise Ratasich
+2019-02-06 | Denise Ratasich

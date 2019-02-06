@@ -9,7 +9,8 @@ usage or installation instructions).
   * [Tracking Daisy](tutorials/daisy/optitrack/README.md)
 * [`dagobert` - Network Setup](tutorials/dagobert-network-setup.md)
 * [`daisy` - Information and Setup](tutorials/daisy/README.md)
+  * [Setup a hotspot for Daisy](./tutorials/daisy/access-point/README.md)
 * [Setup and Use of Laser Rangefinder Hokuyo URG-04LX](tutorials/hokuyo-urg-04lx/README.md)
 
 ---
-2018-09-19 | Denise Ratasich
+2019-02-06 | Denise Ratasich
