@@ -1,5 +1,12 @@
 # ROS with Docker
 
+The following tutorial is a description of how I've got started with ROS.
+
+Meanwhile, I use [my own Dockerfiles](https://github.com/dratasich/docker)
+to use ROS (e.g., run demos with [Daisy]) which saves some time
+(specifying options, e.g., environment variables, working directory,
+or installing packages)
+and uses [x11docker] for GUI tools (I strongly recommend!).
 
 ## Installation
 
@@ -7,23 +14,20 @@
   docs - About Docker CE] and [post-installation
   steps](https://docs.docker.com/install/linux/linux-postinstall/)).
 
-* If you want to use ROS GUI tools build a custom docker image (no official
-  desktop-full images?):
+* If you want to use ROS GUI tools build a custom docker image
+  (there are no official desktop-full images?):
   ```bash
   $ cat Dockerfile
-  FROM ros:kinetic
+  FROM ros:melodic
   RUN apt-get update && apt-get install -y \
-      ros-kinetic-desktop-full
-  $ docker build -t ros:kinetic-desktop-full .
+      ros-melodic-desktop-full
+  $ docker build -t ros:melodic-desktop-full .
   ```
 
   If you only use the CLI, simply pull the ROS docker image:
   ```bash
-  $ docker pull ros:kinetic
+  $ docker pull ros:melodic
   ```
-  I pulled `ros:kinetic` to have the ros package `p2os_msgs` available as
-  binary which was not (yet) in ROS melodic repository on 2018-09-12. You may
-  try the latest image.
 
 * Run ROS container:
   ```bash
@@ -34,7 +38,7 @@
       --network host \
       --env ROS_MASTER_URI=http://<your hostname>:11311 \
       --name ros
-      ros:kinetic[-desktop-full]
+      ros:melodic[-desktop-full]
   ```
 
   This command starts the ROS docker image `ros` in an interactive terminal
@@ -47,7 +51,7 @@
   master URI is set, however, you might have a ros-entrypoint-script sourcing
   the workspaces anyway where you can add the export of the variable.
 
-  It is convinient to assign a name to the container:
+  It is convenient to assign a name to the container:
   * to start another shell in the same container (this is not the typical
     Docker way to do it -- one process per container).
     ```bash
@@ -89,7 +93,7 @@ On the host do:
 
   Start some nodes in the container, e.g.:
   ```bash
-  $ source /opt/ros/kinetic/setup.sh
+  $ source /opt/ros/melodic/setup.sh
   $ roscore &
     :
   $ rostopic pub -r 1 /test std_msgs/String "test"
@@ -103,7 +107,7 @@ On the host do:
       --env DISPLAY=$DISPLAY \
       -v "/tmp/.X11-unix:/tmp/.X11-unix:rw" \
       --name rqt_graph \
-      ros:kinetic-desktop-full \
+      ros:melodic-desktop-full \
       rqt_graph
   ```
 
@@ -115,13 +119,13 @@ On the host do:
   Give the container a name to be able to restart it later, select the
   desktop-full image and execute `rqt_graph`.
 
-You may create an alias for convinience (in `.bashrc` or similar):
+You may create an alias for convenience (in `.bashrc` or similar):
 ```bash
 alias docker_gui="docker run --net=host --user $(id -u) --env DISPLAY=$DISPLAY -v '/tmp/.X11-unix:/tmp/.X11-unix:rw'"
 ```
 So you can later start a ROS GUI tool by:
 ```bash
-$ docker_gui --name rqt_graph ros:kinetic-desktop-full rqt_graph
+$ docker_gui --name rqt_graph ros:melodic-desktop-full rqt_graph
 ```
 You can then (re-)start `rqt_graph` by:
 ```bash
@@ -134,7 +138,7 @@ Some GUI apps still make troubles (e.g., rviz). You may try [x11docker].
 
 On the host do:
 
-* Setup the network with Daisy. You will need to connect to [Daisy's network]
+* Setup the network with Daisy. You will need to connect to [Daisy]'s network
   install `openssh-server` and exchange SSH keys (see [network setup]).
 
 * Create a folder for your [ROS workspace] and download the [general-ros-modules
@@ -153,18 +157,18 @@ On the host do:
 
 In the container do:
 
-* Install `p2os_msgs` (replace `kinetic` with your distro) which is needed to
+* Install `p2os_msgs` (replace `melodic` with your distro) which is needed to
   communicate with the robot driver (e.g., motor control). `bash-completion`
-  is just for convinience.
+  is just for convenience.
   ```bash
   $ apt update
   $ apt install bash-completion
-  $ apt install ros-kinetic-p2os-msgs
+  $ apt install ros-melodic-p2os-msgs
   ```
 
 * Initialize the [ROS workspace] (build and source):
   ```bash
-  $ source /opt/ros/kinetic/setup.sh
+  $ source /opt/ros/melodic/setup.sh
   $ cd ~/catkin_ws
   $ catkin_make
   $ source devel/setup.sh
@@ -194,11 +198,11 @@ In the container do:
 [ROS Docker and GUI]: http://wiki.ros.org/docker/Tutorials/GUI
 [ROS Docker images]: https://hub.docker.com/_/ros/
 [ROS workspace]: http://wiki.ros.org/catkin/Tutorials/create_a_workspace
-[Daisy's network]: ../README.md
-[network setup]: ../../dagobert-network-setup.md
+[Daisy]: ../daisy/README.md
+[network setup]: ../dagobert-network-setup.md
 [general-ros-modules repository]: https://github.com/tuw-cpsg/general-ros-modules
 [x11docker]: https://github.com/mviereck/x11docker
 [Daisy Demos with Docker]: https://github.com/dratasich/docker
 
 ---
-2018-01-03 | Denise Ratasich
+2019-02-08 | Denise Ratasich
