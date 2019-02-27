@@ -39,6 +39,8 @@ vice versa (you will need `openssh-server` installed on your notebook).
 
   Do vice-versa on `dagobert`'s `.ssh/config`.
 
+* [Create](https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) SSH key of type `rsa`.
+
 * Exchange ssh-keys such that you can ssh without
   password-prompt. Unfortunately, ROS connections can only be established with
   RSA keys ([known_hosts

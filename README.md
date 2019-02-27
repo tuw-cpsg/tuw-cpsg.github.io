@@ -11,6 +11,7 @@ usage or installation instructions).
 * [`daisy` - Information and Setup](tutorials/daisy/README.md)
   * [Setup a hotspot for Daisy](./tutorials/daisy/access-point/README.md)
 * [Setup and Use of Laser Rangefinder Hokuyo URG-04LX](tutorials/hokuyo-urg-04lx/README.md)
+* [Time-of-Flight Camera](tutorials/tof/README.md)
 
 ---
-2019-02-06 | Denise Ratasich
+2019-02-27 | Denise Ratasich
